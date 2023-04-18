@@ -319,6 +319,7 @@ var _ = Describe("Operator", func() {
 
 func setupDirectoriesAndFiles(archiveDir string, validDeployment bool) error {
 	overlaysDir := fmt.Sprintf("%s/overlays", archiveDir)
+	upstreamDir := fmt.Sprintf("%s/upstream", archiveDir)
 	midstreamDir := fmt.Sprintf("%s/midstream", overlaysDir)
 	downstreamsDir := fmt.Sprintf("%s/downstreams", overlaysDir)
 
@@ -337,6 +338,12 @@ func setupDirectoriesAndFiles(archiveDir string, validDeployment bool) error {
 	}
 	if _, err := os.Stat(downstreamsDir); errors.Is(err, os.ErrNotExist) {
 		err = os.Mkdir(downstreamsDir, 0700)
+		if err != nil {
+			return err
+		}
+	}
+	if _, err := os.Stat(upstreamDir); errors.Is(err, os.ErrNotExist) {
+		err = os.Mkdir(upstreamDir, 0700)
 		if err != nil {
 			return err
 		}
